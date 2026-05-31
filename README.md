@@ -177,6 +177,12 @@ Build succeeded.
 - Automatic Mode currently focuses on user activity, Away behavior, and fullscreen blocking; app-specific profile rules are future work.
 - The app currently focuses on the five built-in Power Mode profiles.
 
+## Development note
+
+Power Mode was designed, implemented, reviewed, and documented by MicaLovesKPOP through an iterative AI-assisted development workflow with ChatGPT / GPT-5.5 Thinking (Extended).
+
+All final code, behavior, packaging, release decisions, and project direction were reviewed and accepted by the maintainer. Power Mode is not affiliated with, endorsed by, or sponsored by OpenAI.
+
 ## License
 
 GNU General Public License v3.0. See [`LICENSE`](LICENSE).
