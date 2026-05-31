@@ -1,8 +1,20 @@
-# Power Mode
+# Power Mode [![Download](https://img.shields.io/badge/Download-Latest_Release-brightgreen)](https://github.com/MicaLovesKPOP/PowerMode/releases/latest)
 
 Power Mode is a Windows tray utility for switching between custom performance, quiet, and energy-saving power profiles from a polished Windows 11-style flyout.
 
 It is designed for desktop PCs where the user wants quick control over responsiveness, fan noise, and background power use without digging through classic Control Panel power-plan pages.
+
+## Download
+
+Download the latest installer from the [latest release](https://github.com/MicaLovesKPOP/PowerMode/releases/latest).
+
+For normal users, download:
+
+```text
+PowerModeSetup-v2.7.15.exe
+```
+
+The `.sha256` file is included for checksum verification.
 
 ## Highlights
 
@@ -22,7 +34,7 @@ It is designed for desktop PCs where the user wants quick control over responsiv
 
 ## Screenshots
 
-Screenshots should be added before the first public release. Suggested files:
+Screenshots are planned. Suggested files:
 
 ```text
 assets/screenshots/main-flyout-manual.png
@@ -55,6 +67,8 @@ Away mode is blocked by fullscreen foreground apps by default. Returning to the 
 ## Power history
 
 Power history is available from the right-click tray menu.
+
+Opening Power history refreshes the readable summary before opening the folder, so the summary reflects the current session up to that moment without adding fake event-log entries.
 
 It opens a local folder containing:
 

@@ -1,0 +1,8 @@
+{
+  "name": "Mica Power Mode v2.7.15",
+  "version": "2.7.15",
+  "description": "Power Mode tray companion with warning cleanup.",
+  "notes": "Cleans known nullable, unused-field, and high-DPI build warnings.",
+  "packageVersion": "2.7.15",
+  "winuiDeployment": "self-contained-preferred"
+}

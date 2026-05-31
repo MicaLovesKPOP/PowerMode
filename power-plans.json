@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "defaultPlan": "Optimized Performance",
+  "builtinPlans": [
+    {
+      "name": "Optimized Performance",
+      "builtinGuid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "legacyAlias": "SCHEME_BALANCED",
+      "dotColor": "#ffd153",
+      "minCpu": 99,
+      "maxCpu": 100,
+      "description": "Recommended default for responsiveness. Keeps the CPU at a high frequency at all times for a system that feels very responsive. Gaming performance is usually identical to the Unrestrained and Balanced profiles. This profile optimizes performance during general use by using more power, running louder, and running hotter than the Balanced profile, for higher responsiveness.",
+      "nativePowerMode": "BestPerformance"
+    },
+    {
+      "name": "Unrestrained Performance",
+      "builtinGuid": "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c",
+      "legacyAlias": "SCHEME_MIN",
+      "dotColor": "#ff9e59",
+      "minCpu": 100,
+      "maxCpu": 100,
+      "description": "Keeps the CPU in its highest performance state for maximum responsiveness, given adequate cooling. Gaming performance is usually identical to the Optimized and Balanced profiles. This profile yields unrestrained performance by using more power, running louder, and running hotter than the Optimized profile, for that last bit of responsiveness.",
+      "nativePowerMode": "BestPerformance"
+    },
+    {
+      "name": "Extreme Energy Saver",
+      "builtinGuid": "a1841308-3541-4fab-bc81-f71556f20b4a",
+      "legacyAlias": "SCHEME_MAX",
+      "dotColor": "#8c79d1",
+      "minCpu": 5,
+      "maxCpu": 25,
+      "description": "Recommended only when away from the PC. Keeps the CPU heavily clocked down for maximum efficiency. Useful for letting your PC work on background tasks like downloads, file copies, cloud sync, or other long background tasks. This profile maximizes efficiency by heavily sacrificing performance in order to use as little power as possible and to run as cool and quiet as possible.",
+      "nativePowerMode": "BestPowerEfficiency"
+    }
+  ],
+  "customPlans": [
+    {
+      "name": "Balanced Performance",
+      "sourceGuid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "dotColor": "#8ebb57",
+      "minCpu": 5,
+      "maxCpu": 100,
+      "description": "Recommended default for a balance of responsiveness and efficiency. Lets the CPU clock down and speed up fully as needed. Gaming performance is usually identical to the Unrestrained and Optimized profiles. This profile balances performance and efficiency during general use by using less power, running quieter, and running cooler than the Optimized profile, for higher efficiency.",
+      "nativePowerMode": "Balanced"
+    },
+    {
+      "name": "Cool and Quiet",
+      "sourceGuid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "dotColor": "#5b99cc",
+      "minCpu": 5,
+      "maxCpu": 99,
+      "description": "Keeps the CPU from boosting for increased efficiency at the cost of performance. Gaming and general performance are decreased compared to the Balanced, Optimized, or Unrestrained profiles. This profile prioritizes efficiency by using less power, running quieter, and running cooler than the Balanced profile, for very high efficiency.",
+      "nativePowerMode": "Balanced"
+    }
+  ],
+  "plans": [
+    {
+      "name": "Unrestrained Performance",
+      "dotColor": "#ff9e59",
+      "minCpu": 100,
+      "maxCpu": 100,
+      "nativePowerMode": "BestPerformance"
+    },
+    {
+      "name": "Optimized Performance",
+      "dotColor": "#ffd153",
+      "minCpu": 99,
+      "maxCpu": 100,
+      "nativePowerMode": "BestPerformance"
+    },
+    {
+      "name": "Balanced Performance",
+      "dotColor": "#8ebb57",
+      "minCpu": 5,
+      "maxCpu": 100,
+      "nativePowerMode": "Balanced"
+    },
+    {
+      "name": "Cool and Quiet",
+      "dotColor": "#5b99cc",
+      "minCpu": 5,
+      "maxCpu": 99,
+      "nativePowerMode": "Balanced"
+    },
+    {
+      "name": "Extreme Energy Saver",
+      "dotColor": "#8c79d1",
+      "minCpu": 5,
+      "maxCpu": 25,
+      "nativePowerMode": "BestPowerEfficiency"
+    }
+  ]
+}
