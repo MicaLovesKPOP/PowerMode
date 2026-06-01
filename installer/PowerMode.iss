@@ -51,17 +51,17 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "{#PublishDir}\*"; DestDir: "{app}"; Excludes: "*.pdb"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#SourceRoot}\Install-Dependencies.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Install-Dependencies.ps1"; DestName: "Install-Dependencies-Prepare.ps1"; Flags: dontcopy
-Source: "{#SourceRoot}\Install-PowerModeRelease.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Ensure-MicaPowerPlans.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\power-plans.json"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Install-PowerModeTrayStartup.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Remove-PowerModeTrayStartup.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Restore-PowerModeGlobalBehavior.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Stop-PowerModeTray.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Promote-PowerModeTrayIcon.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
-Source: "{#SourceRoot}\Repair-PowerPlans-Admin.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Install-Dependencies.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Install-Dependencies.ps1"; DestName: "Install-Dependencies-Prepare.ps1"; Flags: dontcopy
+Source: "{#SourceRoot}\scripts\Install-PowerModeRelease.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Ensure-MicaPowerPlans.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\config\power-plans.json"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Install-PowerModeTrayStartup.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Remove-PowerModeTrayStartup.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Restore-PowerModeGlobalBehavior.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Stop-PowerModeTray.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Promote-PowerModeTrayIcon.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
+Source: "{#SourceRoot}\scripts\Repair-PowerPlans-Admin.ps1"; DestDir: "{app}\scripts"; Flags: ignoreversion
 Source: "{#SourceRoot}\PowerMode-QuickGuide.md"; DestDir: "{app}\docs"; Flags: ignoreversion
 Source: "{#SourceRoot}\PowerMode-QuickGuide.txt"; DestDir: "{app}\docs"; Flags: ignoreversion
 
@@ -382,4 +382,3 @@ begin
     end;
   end;
 end;
-
