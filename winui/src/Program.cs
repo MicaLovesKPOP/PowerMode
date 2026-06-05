@@ -23,6 +23,10 @@ internal static class Program
 
         try
         {
+            PowerModeSafety.ApplyStartupGuard();
+            PowerModeSafety.RegisterShutdownGuard();
+            PowerModeSafety.StartPostLoginManualRestoreMonitor();
+
             WinRT.ComWrappersSupport.InitializeComWrappers();
             Application.Start((p) => { _ = new App(); });
         }
