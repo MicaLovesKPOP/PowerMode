@@ -8,17 +8,19 @@ It is designed for desktop PCs where you want quick control over responsiveness,
 
 Download the latest installer from the [latest release](https://github.com/MicaLovesKPOP/PowerMode/releases/latest).
 
-For the current public release, download:
+For the current public stable release, download:
 
 ```text
 PowerModeSetup-v2.7.15.exe
 ```
 
-The matching `.sha256` file is included for checksum verification:
+For the current beta/prerelease candidate, download:
 
 ```text
-PowerModeSetup-v2.7.15.exe.sha256
+PowerModeSetup-v2.7.16-beta.1.exe
 ```
+
+The matching `.sha256` file is included for checksum verification.
 
 ## Screenshots
 
@@ -43,6 +45,7 @@ PowerModeSetup-v2.7.15.exe.sha256
 - Five custom desktop-oriented power profiles.
 - Optional Automatic Mode that switches to a lower-power Away profile when the user is inactive.
 - Fullscreen apps pause Away mode by default, so games and fullscreen video are not interrupted.
+- Startup/shutdown safety guard in v2.7.16-beta.1 to avoid unexpected Extreme Energy Saver slowdowns around boot and sign-in.
 - Power history with readable summary, event log, and compact stats storage.
 - Release installer with dependency checks for .NET 8 Desktop Runtime and Windows App Runtime 1.6.
 
@@ -75,6 +78,29 @@ Default Automatic Mode behavior:
 - **Fullscreen behavior:** Away mode is blocked while a fullscreen foreground app is active
 
 Returning to the PC immediately exits Away mode.
+
+## Startup/shutdown safety beta
+
+v2.7.16-beta.1 adds a safety guard around startup, sign-in, shutdown, and restart behavior.
+
+Automatic Mode:
+
+- If Automatic Mode is enabled, startup/shutdown safety prefers the configured Using PC profile when the active profile is lower-power than expected.
+- Normal Automatic Mode behavior still resumes after the app starts.
+
+Manual Mode:
+
+- If Manual mode was intentionally left in Extreme Energy Saver, Power Mode temporarily uses Cool & Quiet during startup/shutdown safety.
+- After sign-in, Power Mode restores Extreme Energy Saver once the system has settled.
+- The restore waits at least 20 seconds, then requires CPU <= 15% and disk <= 20% for 12 seconds.
+- If the system never appears settled, the restore uses a 5-minute fallback timeout.
+- The restore is cancelled if the user changes profiles, Automatic Mode is enabled, or the expected temporary safe profile is no longer active.
+
+Safety diagnostics are written to:
+
+```text
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\PowerModeTray-diagnostic.log
+```
 
 ## Power history
 
@@ -148,11 +174,11 @@ Run:
 Build-Release-Installer.cmd
 ```
 
-Expected outputs:
+Expected beta outputs on this branch:
 
 ```text
-dist\PowerModeSetup-v2.7.15.exe
-dist\PowerModeSetup-v2.7.15.exe.sha256
+dist\PowerModeSetup-v2.7.16-beta.1.exe
+dist\PowerModeSetup-v2.7.16-beta.1.exe.sha256
 dist\build-release-installer.log
 ```
 
@@ -160,21 +186,21 @@ More release-installer details are in [`README-RELEASE-INSTALLER.txt`](README-RE
 
 ## Release status
 
-Current public release: **v2.7.15**
+Current public stable release: **v2.7.15**
+
+Current beta/prerelease candidate on this branch: **v2.7.16-beta.1**
 
 Release build status from local testing:
 
 ```text
-Build succeeded.
-0 Warning(s)
-0 Error(s)
+Not yet validated for v2.7.16-beta.1.
 ```
 
 ## Known limitations
 
 - Desktop-first behavior; laptop and battery-specific logic is future work.
 - Estimated energy savings are intentionally not shown yet, because accurate savings require measured wattage or hardware-specific calibration.
-- Automatic Mode currently focuses on user activity, Away behavior, and fullscreen blocking; app-specific profile rules are future work.
+- Automatic Mode currently focuses on user activity, Away behavior, fullscreen blocking, and startup/shutdown safety; app-specific profile rules are future work.
 - The app currently focuses on the five built-in Power Mode profiles.
 
 ## Development note
