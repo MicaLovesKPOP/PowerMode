@@ -94,10 +94,14 @@ internal static class PowerModeSafety
 
     internal static void StartPostLoginManualRestoreMonitor()
     {
-        if (Interlocked.Exchange(ref _postLoginRestoreStarted, 1) != 0) return;
-
         PendingManualRestore? pending = LoadPendingManualRestore();
         if (pending == null) return;
+
+        if (Interlocked.CompareExchange(ref _postLoginRestoreStarted, 1, 0) != 0)
+        {
+            WriteDiagnostic("Post-login manual restore monitor is already running.");
+            return;
+        }
 
         _ = Task.Run(() => MonitorAndRestoreManualExtremeEnergySaverAsync(pending.Value));
     }
@@ -117,6 +121,11 @@ internal static class PowerModeSafety
                 {
                     SavePendingManualRestore(ExtremeEnergySaver, target, "shutdown guard");
                     WriteDiagnostic($"Shutdown guard moved manual '{active}' to '{target}' before session end ({e.Reason}) and queued post-login restore.");
+
+                    // If shutdown/restart continues, the app exits before this monitor can restore anything.
+                    // If another app or Windows policy cancels shutdown, the live session remains on the
+                    // safe profile, so start the same settled-system restore monitor for the surviving session.
+                    StartPostLoginManualRestoreMonitor();
                 }
                 else
                 {
@@ -249,6 +258,7 @@ internal static class PowerModeSafety
         finally
         {
             sampler?.Dispose();
+            Interlocked.Exchange(ref _postLoginRestoreStarted, 0);
         }
     }
 
