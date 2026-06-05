@@ -17,8 +17,8 @@ The build script will:
 1. Publish the WinUI tray app to winui\publish
 2. Remove *.pdb debug symbols from the release payload
 3. Compile installer\PowerMode.iss with Inno Setup
-4. Output the installer to dist\PowerModeSetup-v2.7.15.exe
-5. Write a SHA256 checksum to dist\PowerModeSetup-v2.7.15.exe.sha256
+4. Output the installer to dist\PowerModeSetup-v2.7.16-beta.1.exe
+5. Write a SHA256 checksum to dist\PowerModeSetup-v2.7.16-beta.1.exe.sha256
 
 Installer behavior
 ------------------
@@ -35,6 +35,10 @@ The release installer:
 - installs the current-user Startup folder shortcut
 - starts Power Mode after setup
 - best-effort promotes the tray icon into the visible tray area
+
+Beta note
+---------
+v2.7.16-beta.1 adds startup/shutdown safety behavior. Before publishing it as stable, validate restart, cancelled shutdown/restart, Automatic Mode Away restart, and normal Automatic Mode startup in a Windows VM.
 
 Uninstall behavior
 ------------------
@@ -64,10 +68,10 @@ If Inno Setup is installed somewhere custom and the build script cannot find it,
 
 Output files
 ------------
-Expected release outputs:
+Expected beta outputs on this branch:
 
-  dist\PowerModeSetup-v2.7.15.exe
-  dist\PowerModeSetup-v2.7.15.exe.sha256
+  dist\PowerModeSetup-v2.7.16-beta.1.exe
+  dist\PowerModeSetup-v2.7.16-beta.1.exe.sha256
   dist\build-release-installer.log
 
 Notes
@@ -79,3 +83,5 @@ Notes
   C:\ProgramData\MicaLovesKPOP\PowerMode\logs
 - User-facing Power history is stored under:
   %LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs
+- Startup/shutdown safety diagnostics are written to:
+  %LOCALAPPDATA%\MicaLovesKPOP\PowerMode\PowerModeTray-diagnostic.log
