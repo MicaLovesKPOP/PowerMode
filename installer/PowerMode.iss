@@ -3,7 +3,8 @@
 ;   Build-Release-Installer.cmd
 
 #define AppName "Power Mode"
-#define AppVersion "2.7.15"
+#define AppVersion "2.7.16-beta.1"
+#define AppVersionNumeric "2.7.16.1"
 #define AppPublisher "KomCom"
 #define AppExeName "PowerModeTray.exe"
 #define SourceRoot ".."
@@ -20,11 +21,11 @@ DefaultGroupName=Power Mode
 DisableProgramGroupPage=yes
 OutputDir={#SourceRoot}\dist
 OutputBaseFilename=PowerModeSetup-v{#AppVersion}
-VersionInfoVersion={#AppVersion}
+VersionInfoVersion={#AppVersionNumeric}
 VersionInfoCompany={#AppPublisher}
 VersionInfoDescription={#AppName} Setup
 VersionInfoProductName={#AppName}
-VersionInfoProductVersion={#AppVersion}
+VersionInfoProductVersion={#AppVersionNumeric}
 VersionInfoProductTextVersion={#AppVersion}
 VersionInfoTextVersion={#AppVersion}
 Compression=lzma2/ultra64
