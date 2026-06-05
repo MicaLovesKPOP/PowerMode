@@ -7,6 +7,7 @@
 - Confirm version in `installer/PowerMode.iss`.
 - Confirm README expected output version.
 - Confirm changelog entry.
+- Confirm beta release notes in `docs/release-notes-v2.7.16-beta.1.md`.
 
 ## Build
 
@@ -16,11 +17,11 @@ Run:
 Build-Release-Installer.cmd
 ```
 
-Expected outputs:
+Expected beta outputs on this branch:
 
 ```text
-dist\PowerModeSetup-v2.7.15.exe
-dist\PowerModeSetup-v2.7.15.exe.sha256
+dist\PowerModeSetup-v2.7.16-beta.1.exe
+dist\PowerModeSetup-v2.7.16-beta.1.exe.sha256
 dist\build-release-installer.log
 ```
 
@@ -35,23 +36,37 @@ dist\build-release-installer.log
 - Power history opens.
 - Uninstall removes app files and startup entry.
 
-## GitHub release
+## Beta-specific verification
+
+- Manual mode -> Extreme Energy Saver -> restart.
+- Manual mode -> Extreme Energy Saver -> shutdown/restart request -> cancelled shutdown/restart if possible.
+- Automatic Mode enabled -> Away profile active -> restart.
+- Automatic Mode enabled -> normal startup.
+- Confirm startup/shutdown safety diagnostics under:
+
+```text
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\PowerModeTray-diagnostic.log
+```
+
+## GitHub prerelease
 
 Tag:
 
 ```text
-v2.7.15
+v2.7.16-beta.1
 ```
 
 Title:
 
 ```text
-Power Mode v2.7.15
+Power Mode v2.7.16-beta.1
 ```
 
 Upload:
 
 ```text
-PowerModeSetup-v2.7.15.exe
-PowerModeSetup-v2.7.15.exe.sha256
+PowerModeSetup-v2.7.16-beta.1.exe
+PowerModeSetup-v2.7.16-beta.1.exe.sha256
 ```
+
+Mark the GitHub release as a prerelease/beta.
