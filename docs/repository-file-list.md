@@ -23,6 +23,7 @@ config/power-plans.json
 docs/building.md
 docs/release-checklist.md
 docs/release-notes-v2.7.15.md
+docs/release-notes-v2.7.16-beta.1.md
 docs/repository-file-list.md
 docs/troubleshooting.md
 installer/PowerMode.iss
@@ -45,6 +46,7 @@ winui/App.xaml
 winui/PowerModeTray.WinUI.csproj
 winui/app.manifest
 winui/src/App.xaml.cs
+winui/src/PowerModeSafety.cs
 winui/src/PowerModeTrayApplication.cs
 winui/src/Program.cs
 ```
