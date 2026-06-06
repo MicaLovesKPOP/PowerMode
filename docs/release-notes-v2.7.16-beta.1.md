@@ -1,6 +1,6 @@
 # Power Mode v2.7.16-beta.1
 
-Experimental beta release candidate for startup, shutdown, and Extreme Energy Saver safety behavior.
+Experimental beta release candidate for startup, shutdown, Extreme Energy Saver safety behavior, and the clean logging layout.
 
 This beta intentionally lives on the PR branch while the behavior is tested. The stable public release remains v2.7.15 until this naturally becomes ready for normal users.
 
@@ -11,6 +11,8 @@ This beta intentionally lives on the PR branch while the behavior is tested. The
 - Added post-login restore behavior for users who intentionally left Manual mode in Extreme Energy Saver.
 - Added CPU/disk settled-system monitoring before restoring manual Extreme Energy Saver.
 - Added an experimental Automatic Mode EES startup gate.
+- Added a clean logging layout under `PowerMode\logs`.
+- Added one-time legacy log-folder preservation: old data can be moved to `PowerMode.bak` before the new clean layout starts.
 - Added concise diagnostics for safety-guard decisions, restore cancellation, restore fallback, delayed Away mode, and final restore timing.
 
 ## Behavior details
@@ -32,15 +34,20 @@ Manual Mode:
 - If the system never appears settled, the restore uses a 5-minute fallback timeout.
 - The restore is cancelled if the user changes profiles, Automatic Mode is enabled, or the expected temporary safe profile is no longer active.
 
-## Diagnostics
+Logging:
 
-Safety diagnostics are written to:
+- New logs are written to:
 
 ```text
-%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\PowerModeTray-diagnostic.log
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-events.log
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-diagnostic.log
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-crash.log
+%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-stats.json
 ```
 
-The diagnostic log is capped to avoid unbounded growth.
+- Existing legacy log data is preserved by moving the old `PowerMode` folder to `PowerMode.bak` when needed.
+- Fresh installs only create the clean `PowerMode\logs` layout.
+- Event, diagnostic, and crash logs use size-based rotation.
 
 ## Recommended beta validation
 
@@ -49,10 +56,11 @@ Before publishing this as stable, test:
 - Manual mode -> Extreme Energy Saver -> restart.
 - Manual mode -> Extreme Energy Saver -> shutdown/restart request -> cancelled shutdown if possible.
 - Automatic Mode enabled -> Away profile Extreme Energy Saver -> normal restart.
-- Automatic Mode enabled -> Away profile Extreme Energy Saver -> simulated power loss / forced VM reset.
+- Automatic Mode enabled -> Away profile Extreme Energy Saver -> simulated power loss / forced VM reset only from a disposable VM snapshot.
 - Automatic Mode enabled -> normal startup while user becomes active before Away mode.
 - Confirm no `powercfg` popups appear during shutdown/restart.
-- Confirm diagnostic log entries after each scenario.
+- Confirm legacy logs are preserved in `PowerMode.bak` when upgrading from an older layout.
+- Confirm new event/diagnostic/crash logs appear only under `PowerMode\logs`.
 
 ## Download
 
