@@ -27,6 +27,8 @@ internal static class PowerModeLog
     private static string LocalAppDataDirectory => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     internal static string DataDirectory => Path.Combine(LocalAppDataDirectory, "PowerMode");
     internal static string LogsDirectory => Path.Combine(DataDirectory, "logs");
+    private static string OldVendorDirectory => Path.Combine(LocalAppDataDirectory, "MicaLovesKPOP");
+    private static string OldVendorDataDirectory => Path.Combine(OldVendorDirectory, "PowerMode");
 
     private static string EventLogPath => Path.Combine(LogsDirectory, "power-mode-events.log");
     private static string DiagnosticLogPath => Path.Combine(LogsDirectory, "power-mode-diagnostic.log");
@@ -44,9 +46,10 @@ internal static class PowerModeLog
 
                 if (!IsCleanLogLayoutInitialized())
                 {
-                    string? backupPath = MigrateLegacyPowerModeDirectoryIfNeeded();
+                    string? backupPath = MigrateLegacyPowerModeDirectoriesIfNeeded();
                     Directory.CreateDirectory(LogsDirectory);
                     MarkCleanLogLayoutInitialized(backupPath);
+                    TryRemoveEmptyOldVendorDirectory();
                 }
                 else
                 {
@@ -190,20 +193,33 @@ internal static class PowerModeLog
         catch { }
     }
 
-    private static string? MigrateLegacyPowerModeDirectoryIfNeeded()
+    private static string? MigrateLegacyPowerModeDirectoriesIfNeeded()
+    {
+        string? firstBackup = null;
+        try
+        {
+            firstBackup = BackupDirectoryIfNeeded(DataDirectory, Path.Combine(LocalAppDataDirectory, "PowerMode.bak"), firstBackup);
+            firstBackup = BackupDirectoryIfNeeded(OldVendorDataDirectory, Path.Combine(LocalAppDataDirectory, "PowerMode.bak"), firstBackup);
+        }
+        catch { }
+
+        return firstBackup;
+    }
+
+    private static string? BackupDirectoryIfNeeded(string sourcePath, string preferredBackupPath, string? firstBackup)
     {
         try
         {
-            if (!Directory.Exists(DataDirectory)) return null;
-            if (!ShouldBackupExistingPowerModeDirectory(DataDirectory)) return null;
+            if (!Directory.Exists(sourcePath)) return firstBackup;
+            if (!ShouldBackupExistingPowerModeDirectory(sourcePath)) return firstBackup;
 
-            string backupPath = GetAvailableBackupPath(Path.Combine(LocalAppDataDirectory, "PowerMode.bak"));
-            Directory.Move(DataDirectory, backupPath);
-            return backupPath;
+            string backupPath = GetAvailableBackupPath(preferredBackupPath);
+            Directory.Move(sourcePath, backupPath);
+            return firstBackup ?? backupPath;
         }
         catch
         {
-            return null;
+            return firstBackup;
         }
     }
 
@@ -239,6 +255,18 @@ internal static class PowerModeLog
     {
         try { return Directory.EnumerateFileSystemEntries(path).Any(); }
         catch { return true; }
+    }
+
+    private static void TryRemoveEmptyOldVendorDirectory()
+    {
+        try
+        {
+            if (Directory.Exists(OldVendorDirectory) && !Directory.EnumerateFileSystemEntries(OldVendorDirectory).Any())
+            {
+                Directory.Delete(OldVendorDirectory);
+            }
+        }
+        catch { }
     }
 
     private static string GetAvailableBackupPath(string preferredPath)
