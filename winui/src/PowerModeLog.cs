@@ -24,8 +24,8 @@ internal static class PowerModeLog
 
     internal static string SessionId { get; } = DateTime.Now.ToString("yyyyMMdd-HHmmss") + "-" + Environment.ProcessId;
 
-    private static string VendorDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MicaLovesKPOP");
-    internal static string DataDirectory => Path.Combine(VendorDirectory, "PowerMode");
+    private static string LocalAppDataDirectory => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    internal static string DataDirectory => Path.Combine(LocalAppDataDirectory, "PowerMode");
     internal static string LogsDirectory => Path.Combine(DataDirectory, "logs");
 
     private static string EventLogPath => Path.Combine(LogsDirectory, "power-mode-events.log");
@@ -40,7 +40,7 @@ internal static class PowerModeLog
 
             try
             {
-                Directory.CreateDirectory(VendorDirectory);
+                Directory.CreateDirectory(LocalAppDataDirectory);
 
                 if (!IsCleanLogLayoutInitialized())
                 {
@@ -197,7 +197,7 @@ internal static class PowerModeLog
             if (!Directory.Exists(DataDirectory)) return null;
             if (!ShouldBackupExistingPowerModeDirectory(DataDirectory)) return null;
 
-            string backupPath = GetAvailableBackupPath(Path.Combine(VendorDirectory, "PowerMode.bak"));
+            string backupPath = GetAvailableBackupPath(Path.Combine(LocalAppDataDirectory, "PowerMode.bak"));
             Directory.Move(DataDirectory, backupPath);
             return backupPath;
         }
