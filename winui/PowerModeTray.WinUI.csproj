@@ -11,6 +11,7 @@
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <WindowsPackageType>None</WindowsPackageType>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>false</ImplicitUsings>
     <ApplicationIcon>..\native\assets\PowerModeTray.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
@@ -51,5 +52,9 @@
     <Content Include="..\native\assets\PowerModeTray.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Mica.PowerModeTray.WinUI.LegacyLogFile" Alias="File" />
   </ItemGroup>
 </Project>
