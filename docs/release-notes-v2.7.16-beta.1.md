@@ -1,6 +1,8 @@
 # Power Mode v2.7.16-beta.1
 
-Beta release candidate for startup and shutdown safety behavior.
+Experimental beta release candidate for startup, shutdown, and Extreme Energy Saver safety behavior.
+
+This beta intentionally lives on the PR branch while the behavior is tested. The stable public release remains v2.7.15 until this naturally becomes ready for normal users.
 
 ## What changed
 
@@ -8,14 +10,19 @@ Beta release candidate for startup and shutdown safety behavior.
 - Added a shutdown/restart safety guard so the next boot does not start in an unexpectedly low-power state.
 - Added post-login restore behavior for users who intentionally left Manual mode in Extreme Energy Saver.
 - Added CPU/disk settled-system monitoring before restoring manual Extreme Energy Saver.
-- Added concise diagnostics for safety-guard decisions, restore cancellation, restore fallback, and final restore timing.
+- Added an experimental Automatic Mode EES startup gate.
+- Added concise diagnostics for safety-guard decisions, restore cancellation, restore fallback, delayed Away mode, and final restore timing.
 
 ## Behavior details
 
 Automatic Mode:
 
-- If Automatic Mode is enabled, startup/shutdown safety prefers the configured Using PC profile when the active profile is lower-power than expected.
-- Normal Automatic Mode behavior still resumes after the app starts.
+- If Automatic Mode is enabled and the Away profile is Extreme Energy Saver, Power Mode pauses Automatic Mode briefly during startup/sign-in.
+- While the startup gate is active, Automatic Mode may stay in or return to the configured Using PC profile instead of entering Away/EES immediately.
+- The experimental Automatic Mode gate waits at least 30 seconds, then allows Away/EES once CPU stays <= 15% for 12 seconds.
+- If the CPU counter is unavailable, the gate falls back after 120 seconds.
+- If the CPU never appears settled, the gate falls back after 5 minutes.
+- The gate is disposed on Windows session ending so it should not keep doing power-plan work during shutdown/restart.
 
 Manual Mode:
 
@@ -41,9 +48,11 @@ Before publishing this as stable, test:
 
 - Manual mode -> Extreme Energy Saver -> restart.
 - Manual mode -> Extreme Energy Saver -> shutdown/restart request -> cancelled shutdown if possible.
-- Automatic Mode enabled -> Away profile active -> restart.
-- Automatic Mode enabled -> normal startup.
-- Diagnostic log entries after each scenario.
+- Automatic Mode enabled -> Away profile Extreme Energy Saver -> normal restart.
+- Automatic Mode enabled -> Away profile Extreme Energy Saver -> simulated power loss / forced VM reset.
+- Automatic Mode enabled -> normal startup while user becomes active before Away mode.
+- Confirm no `powercfg` popups appear during shutdown/restart.
+- Confirm diagnostic log entries after each scenario.
 
 ## Download
 
