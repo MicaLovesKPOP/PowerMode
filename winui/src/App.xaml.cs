@@ -5,6 +5,7 @@ namespace Mica.PowerModeTray.WinUI;
 public sealed class App : Application
 {
     private PowerModeTrayApplication? _trayApplication;
+    private AutomaticModeStartupHoldoff? _automaticModeStartupHoldoff;
 
     public App()
     {
@@ -17,5 +18,6 @@ public sealed class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         _trayApplication = new PowerModeTrayApplication();
+        _automaticModeStartupHoldoff = AutomaticModeStartupHoldoff.Attach(_trayApplication);
     }
 }
