@@ -11,8 +11,8 @@ This beta intentionally lives on the PR branch while the behavior is tested. The
 - Added post-login restore behavior for users who intentionally left Manual mode in Extreme Energy Saver.
 - Added CPU/disk settled-system monitoring before restoring manual Extreme Energy Saver.
 - Added an experimental Automatic Mode EES startup gate.
-- Added a clean logging layout under `PowerMode\logs`.
-- Added one-time legacy log-folder preservation: old data can be moved to `PowerMode.bak` before the new clean layout starts.
+- Added a clean app-data/logging layout under `%LOCALAPPDATA%\PowerMode`.
+- Added one-time legacy log-folder preservation: old data can be moved to `%LOCALAPPDATA%\PowerMode.bak` before the new clean layout starts.
 - Added concise diagnostics for safety-guard decisions, restore cancellation, restore fallback, delayed Away mode, and final restore timing.
 
 ## Behavior details
@@ -39,14 +39,14 @@ Logging:
 - New logs are written to:
 
 ```text
-%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-events.log
-%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-diagnostic.log
-%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-crash.log
-%LOCALAPPDATA%\MicaLovesKPOP\PowerMode\logs\power-mode-stats.json
+%LOCALAPPDATA%\PowerMode\logs\power-mode-events.log
+%LOCALAPPDATA%\PowerMode\logs\power-mode-diagnostic.log
+%LOCALAPPDATA%\PowerMode\logs\power-mode-crash.log
+%LOCALAPPDATA%\PowerMode\logs\power-mode-stats.json
 ```
 
-- Existing legacy log data is preserved by moving the old `PowerMode` folder to `PowerMode.bak` when needed.
-- Fresh installs only create the clean `PowerMode\logs` layout.
+- Existing legacy log data is preserved by moving the old `%LOCALAPPDATA%\PowerMode` folder to `%LOCALAPPDATA%\PowerMode.bak` when needed.
+- Fresh installs only create the clean `%LOCALAPPDATA%\PowerMode\logs` layout.
 - Event, diagnostic, and crash logs use size-based rotation.
 
 ## Recommended beta validation
@@ -59,8 +59,8 @@ Before publishing this as stable, test:
 - Automatic Mode enabled -> Away profile Extreme Energy Saver -> simulated power loss / forced VM reset only from a disposable VM snapshot.
 - Automatic Mode enabled -> normal startup while user becomes active before Away mode.
 - Confirm no `powercfg` popups appear during shutdown/restart.
-- Confirm legacy logs are preserved in `PowerMode.bak` when upgrading from an older layout.
-- Confirm new event/diagnostic/crash logs appear only under `PowerMode\logs`.
+- Confirm legacy logs are preserved in `%LOCALAPPDATA%\PowerMode.bak` when upgrading from an older layout.
+- Confirm new event/diagnostic/crash logs appear only under `%LOCALAPPDATA%\PowerMode\logs`.
 
 ## Download
 
